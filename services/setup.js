@@ -15,14 +15,6 @@ function logConnectionSuccess(name, resp) {
 }
 
 /**
- * Log any error that comes in
- * @param  {Error} err
- */
-function logConnectionError(err) {
-  log('error', err.message, { stack: err.stack });
-}
-
-/**
  * Connect and create schemas/tables
  *
  * @param  {Boolean} testCacheEnabled used for tests
@@ -39,7 +31,7 @@ function setup(testCacheEnabled) {
     promises.push(redis.createClient().then(resp => logConnectionSuccess('Redis', resp)));
   }
 
-  return Promise.all(promises).catch(logConnectionError);
+  return Promise.all(promises);
 }
 
 module.exports = setup;
